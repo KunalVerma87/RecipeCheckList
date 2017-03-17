@@ -1,0 +1,44 @@
+﻿@model List<SAMPLEINGREDIENTCHECKLIST.Models.RecipeDataViewModel>
+@{
+    ViewBag.Title = "Index";
+}
+
+
+@*<div class="ingerdient">
+        <button type="button" class="btn btn-success blue btn-md" onclick="location.href='@Url.Action("Create", "Recipe")'">Create New Recipe</button>
+    </div>*@
+<div class="row">
+    <div class="col-md-12" style="padding-bottom:10px;">
+        <button type="button" class="btn btn-success blue btn-md" onclick="location.href='@Url.Action("Create", "Recipe")'">Create New Recipe</button>
+    </div>
+</div>
+<table id="myTable" class="table table-bordered table-condensed">
+    <thead>
+        <tr class="rec">
+            <th>Receipe Name</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    @foreach (var item in Model)
+    {
+        <tr class="rec">
+            <td>@item.Name</td>
+            <td class="rec">
+                <button type="button" class="btn btn-primary blue btn-xs" onclick="location.href='@Url.Action("Display", "Recipe", new { @id = item.RecipeId })'">View Ingredient</button>
+                <button type="button" class="btn btn-warning blue btn-xs" onclick="location.href='@Url.Action("Create", "Recipe", new { @id = item.RecipeId })'">Edit</button>
+                <button type="button" class="btn btn-danger blue btn-xs" onclick="if (confirm('Are you sure you want to delete?')) { return Call(@item.RecipeId); } else {return false;}">Delete</button>
+            </td>
+        </tr>
+    }
+
+</table>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#myTable').DataTable();
+    });
+
+    function Call(val) {
+        location.href = "/Recipe/Delete/" + val;
+    };
+
+</script>

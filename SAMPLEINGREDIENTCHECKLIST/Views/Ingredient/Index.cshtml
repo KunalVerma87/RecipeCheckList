@@ -1,0 +1,45 @@
+﻿@model List<SAMPLEINGREDIENTCHECKLIST.Models.IngredientDataViewModel>
+@{
+    ViewBag.Title = "Index";
+    string name = "";
+}
+<div class="ingerdient">
+    <button type="button" class="btn btn-success blue btn-md" onclick="location.href='@Url.Action("Create", "Ingredient")'">Add New Ingredient</button>
+</div>
+<table id="myTable" class="table table-bordered table-condensed">
+
+    <thead class="onlymargin">
+        <tr>
+            <th>Ingredient Name</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    @foreach (var item in Model)
+    {
+        <tr class="rec">
+
+            @if (name != item.RecipeName)
+            {
+                name = item.RecipeName;
+                <td>@item.RecipeName</td>
+                <td class="rec">
+                    <button type="button" class="btn btn-success blue btn-xs" onclick="location.href='@Url.Action("Create", "Ingredient", new { @id = item.IngredientId })'">Add</button>
+                    <button type="button" class="btn btn-warning blue btn-xs" onclick="location.href='@Url.Action("Create", "Ingredient", new { @id = item.IngredientId })'">Edit</button>
+                    <button type="button" class="btn btn-danger blue btn-xs" onclick="location.href='@Url.Action("Delete", "Ingredient", new { @id = item.IngredientId })'">Delete</button>
+                </td>
+            }
+        </tr>
+    }
+</table>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#myTable').DataTable();
+        function DeleteConfirm() {
+            if (confirm("Are you sure want to delete Recipe?"))
+                return true;
+            else
+                return false;
+        }
+    });
+</script>
+

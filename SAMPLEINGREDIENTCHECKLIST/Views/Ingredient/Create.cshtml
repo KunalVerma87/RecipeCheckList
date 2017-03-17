@@ -1,0 +1,68 @@
+﻿@model SAMPLEINGREDIENTCHECKLIST.Models.IngredientDataViewModel
+@{
+    ViewBag.Title = "Create";
+    if (TempData["Name"]!=null)
+    {
+        Model.Name = TempData["Name"].ToString();
+    }
+}
+<div class="container-fluid" style="padding:10px;">
+    <div class="row">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                @if (Model.IngredientId> 0)
+                {
+                    <strong>Edit Ingredient</strong>
+                }
+                else
+                {
+                    <strong>Add New</strong>
+                }
+            </div>
+            @using (Html.BeginForm("Create", "Ingredient", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                <div class="ingerdient">
+                    @Html.HiddenFor(m => m.IngredientId)
+                    @Html.HiddenFor(m=>m.RecipeId)
+                   @if (TempData["ErrorMessage"]!=null)
+                   { 
+                     <div class="form-group">
+                         <div class="text-danger control-label col-md-4 text-left">@TempData["ErrorMessage"].ToString()</div>
+                    </div>
+                   }
+                    <div class="form-group">
+                        <span class="control-label col-sm-2"><strong>Receipe Name</strong></span>
+                        <div class=" col-md-4">
+                            @Html.TextBoxFor(m => m.RecipeName, new { @class = "form-control",@readonly=true })
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <span class="control-label col-sm-2"><strong>Ingredient</strong></span>
+                        <div class=" col-md-4">
+                            @Html.TextBoxFor(m => m.Name, new { @class = "form-control", required = "required" })
+                            @Html.ValidationMessageFor(m => m.Name)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            @if (Model.IngredientId > 0)
+                            {
+                                 <input type="submit" value="Update" class="btn btn-primary" />
+                            }
+                            else
+                            {
+                                 <input type="submit" value="Create" class="btn btn-primary" />
+                            }
+                           
+                        </div>
+                    </div>
+                    <div class="marginleft">
+                        @Html.ActionLink("Back To List", "Display", "Recipe", new { id = Model.RecipeId },null)
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

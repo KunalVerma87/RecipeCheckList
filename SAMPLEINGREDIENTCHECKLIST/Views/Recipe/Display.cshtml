@@ -1,0 +1,42 @@
+﻿@model SAMPLEINGREDIENTCHECKLIST.Entity.Recipe
+@{
+    ViewBag.Title = "Display";
+}
+<div class="row">
+    <div class="col-md-12">
+        <strong>Recipe Name :</strong> <span>@Model.Name</span>
+        <button type="button" class="btn btn-success blue btn-xs pull-right" onclick="location.href='@Url.Action("Create", "Ingredient", new { id = Model.RecipeId })'">Add Ingredient</button>
+    </div>
+</div>
+<hr />
+<div class="clearfix"></div>
+
+<table id="myTable" class="table table-bordered table-condensed">
+    <thead>
+        <tr>
+            <th>Ingredent Content</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+
+    @foreach (var item in Model.Ingredients)
+    {
+        if (item.Name != null)
+        {
+            <tr class="rec">
+                <td><b>@item.Name</b></td>
+                <td class="rec">
+
+                    <button type="button" class="btn btn-warning blue btn-xs" onclick="location.href='@Url.Action("Edit", "Ingredient", new { @id = item.IngredientId })'">Edit</button>
+                    <button type="button" class="btn btn-danger blue btn-xs" onclick="location.href='@Url.Action("Delete", "Ingredient", new { @id = item.IngredientId })'">Delete</button>
+                </td>
+            </tr>
+        }
+    }
+
+</table>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#myTable').DataTable();
+    });
+</script>

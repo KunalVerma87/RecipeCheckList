@@ -1,0 +1,67 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+
+<div ng-controller="DashboardController as vm">
+    <div ng-hide="vm.hideDishList">
+        <div class="col-md-12">
+            <h2><strong>Recipe List With Ingredients</strong><input type="button" class="btn btn-success pull-right" value="Cook a Dish" ng-click="vm.onAddDishClick()" /></h2>
+            <hr />
+            @*<accordion close-others="oneAtATime">
+                <accordion-group heading="{{group.RecipeName}}" ng-repeat="group in vm.DishesList">
+                    <p><strong>Ingredients</strong></p>
+                    <div class="col-md-3" ng-repeat="x in group.IngredientsList">
+                        <input type="checkbox" ng-model="x.Checked" ng-click="vm.saveDish(x.IngredientId,x.RecipeId,x.Checked)" /> <label>{{x.Name}}</label>
+                    </div>
+                </accordion-group>
+            </accordion>*@
+            <div class="col-md-12" ng-repeat="group in vm.DishesList">
+                <h3>{{$index+1}}. {{ group.RecipeName}}</h3>
+                <div ng-repeat="x in group.IngredientsList">
+                    <ul style="list-style:none;">
+                        <li>
+                            <input type="checkbox" ng-model="x.Checked" disabled="disabled" ng-click="vm.saveDish(x.IngredientId,x.RecipeId,x.Checked)" />
+                            <label>{{x.Name}}</label>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-12" ng-if="vm.DishesList.length==0">
+            No record found...
+        </div>
+    </div>
+    <div ng-hide="vm.hideAddDish">
+        <div class="form-group">
+            <label class="col-md-2 control-label">Select Recipe</label>
+            <div class="col-md-3">
+                <select class="form-control" ng-model="vm.selectedVal" ng-change="vm.OnRecipeChange()">
+                    <option value="">---Please select---</option>
+                    <option data-ng-repeat="t in vm.RecipeList" value="{{t.RecipeId}}">{{t.RecipeName}}</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <input type="button" value="Create Dish" class="btn btn-success" ng-disabled="vm.selectedVal==''" ng-click="vm.onCreateDish()" />
+                <input type="button" value="Go To Recipe List" class="btn btn-primary" ng-click="vm.onAddDishClick('List')" />
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="col-md-12" id="dishPanel" ng-if="vm.IngredientList.length>0">
+            <hr />
+            <div class="clearfix"></div>
+            <div class="col-md-6" ng-repeat="x in vm.IngredientList">
+                <input type="checkbox" ng-model="x.Checked" ng-click="vm.saveDish(x.IngredientId,x.RecipeId,x.Checked)" /> <label>{{x.Name}}</label>
+            </div>
+        </div>
+        <div class="col-md-12" ng-if="vm.IngredientList.length==0">
+            <hr />
+            No ingredient found...
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+
+
+

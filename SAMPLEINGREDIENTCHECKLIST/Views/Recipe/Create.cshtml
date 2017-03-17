@@ -1,0 +1,91 @@
+﻿@model SAMPLEINGREDIENTCHECKLIST.Models.RecipeDataViewModel
+@{
+    ViewBag.Title = "Create";
+}
+<div class="container-fluid ingerdient">
+    <div class="row">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                @if (Model.RecipeId > 0)
+                {
+                    <strong>Edit Recipe</strong>
+                }
+                else
+                {
+                    <strong>Add New</strong>
+                }
+            </div>
+            @using (Html.BeginForm("Create", "Recipe", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                <div class="ingerdient">
+                    @Html.HiddenFor(m=>m.RecipeId)
+
+                    @if (TempData["ErrorMessage"] != null)
+                    {
+                        <div class="form-group">
+                            <div class="text-danger control-label col-md-4 text-left">@TempData["ErrorMessage"].ToString()</div>
+                        </div>
+                    }
+                    <div class="form-group">
+                        <span class="control-label col-sm-2"><strong>Name</strong></span>
+                        <div class=" col-md-4">
+                            @Html.TextBoxFor(m => m.Name, new { @class = "form-control", required = "required" })
+                            @Html.ValidationMessageFor(m => m.Name)
+                        </div>
+                    </div>
+
+                    @*<div class="form-group">
+                            <span class="control-label col-sm-2"><strong>CreatedBy</strong></span>
+                            <div class=" col-md-4">
+                                @Html.TextBoxFor(m => m.CreatedBy, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.CreatedBy)
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <span class="control-label col-sm-2"><strong>CreatedDate</strong></span>
+                            <div class=" col-md-4">
+                                @Html.TextBoxFor(m => m.CreatedDate, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.CreatedDate)
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <span class="control-label col-sm-2"><strong>Modified By</strong></span>
+                            <div class=" col-md-4">
+                                @Html.TextBoxFor(m => m.ModifiedBy, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.ModifiedBy)
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <span class="control-label col-sm-2"><strong>Modified Date</strong></span>
+                            <div class=" col-md-4">
+                                @Html.TextBoxFor(m => m.ModifiedDate, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.ModifiedDate)
+                            </div>
+                        </div>*@
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            @if (Model.RecipeId > 0)
+                            {
+                                <input type="submit" value="Update" class="btn btn-primary" />
+                            }
+                            else
+                            {
+                                <input type="submit" value="Create" class="btn btn-primary" />
+                            }
+                        </div>
+                    </div>
+
+                    <div class="marginleft">
+                        @Html.ActionLink("Back To List", "Index")
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+
